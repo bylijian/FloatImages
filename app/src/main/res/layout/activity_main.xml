@@ -7,7 +7,7 @@
     android:background="@android:color/white"
     android:onClick="gotoImage"
     android:orientation="vertical"
-    tools:context="com.lijian.floatcloneview.MainActivity">
+    tools:context="com.lijian.FloatImage.MainActivity">
 
     <TextView
         android:layout_width="match_parent"

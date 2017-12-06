@@ -1,4 +1,4 @@
-package com.lijian.floatcloneview;
+package com.lijian.FloatImage;
 
 import org.junit.Test;
 

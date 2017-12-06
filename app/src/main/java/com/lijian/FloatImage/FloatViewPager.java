@@ -1,4 +1,4 @@
-package com.lijian.floatcloneview;
+package com.lijian.FloatImage;
 
 import android.content.Context;
 import android.support.v4.view.ViewCompat;
