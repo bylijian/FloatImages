@@ -96,6 +96,8 @@ public class FloatViewPager extends ViewPager {
                 Log.d(TAG, "ev.getRawY()=" + y);
                 Log.d(TAG, "mLastMotionY=" + mLastMotionY);
                 Log.d(TAG, "xDistance=" + xDistance + "yDistance=" + yDistance + "mTouchSlop=" + mTouchSlop);
+
+                //判断触摸方向
                 if (mTouchState == TouchState.NONE) {
                     if (xDistance + mTouchSlop < yDistance) {
                         mTouchState = TouchState.VERTICAL_MOVE;
@@ -104,6 +106,7 @@ public class FloatViewPager extends ViewPager {
                         mTouchState = TouchState.HORIZONTAL_MOVE;
                     }
                 }
+                //如果是纵向触摸，移动ViewPager
                 if (mTouchState == TouchState.VERTICAL_MOVE) {
                     move(false, x - mLastMotionX, (y - mLastMotionY));
                 }
@@ -113,6 +116,7 @@ public class FloatViewPager extends ViewPager {
             case MotionEvent.ACTION_UP:
                 mLastMotionX = ev.getRawX();
                 mLastMotionY = ev.getRawY();
+                //纵向触摸结束，判断是否需要飞出，需要ViewPager动画飞出，不需要，飞回原位
                 if (mTouchState == TouchState.VERTICAL_MOVE) {
                     if (needToFlingOut()) {
                         int finalY = getTop() < mInitTop ? -(mHeight + mInitTop) : mParent.getHeight();
@@ -129,6 +133,7 @@ public class FloatViewPager extends ViewPager {
                 }
                 break;
         }
+        //除了纵向触摸，其他都由父类的super.dispatchTouchEvent(ev)处理
         if (mTouchState == TouchState.VERTICAL_MOVE) {
             return true;
         } else {
@@ -144,6 +149,7 @@ public class FloatViewPager extends ViewPager {
         } catch (IllegalArgumentException e) {
             //uncomment if you really want to see these errors
             //e.printStackTrace();
+            //PhotoView可能会导致这里报异常，它作者推荐的写法
             Log.e(TAG, e.toString());
             return false;
         }
